@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ui/layouts/main_layout}"
+      >
+<head>
+    <title>채팅방</title>
+</head>
+<body layout:fragment="content">
+    <div class="chat-box">
+        <div class="chat-header">
+            <div class="flex align-center">
+                <a href="javascript: history.back();" class="back">
+                    <span class="material-icons">arrow_back</span>
+                </a>
+                <h1>방 제목</h1>
+            </div>
+            <div class="etc">
+                <button id="" class="btn-chat">
+                    <span class="material-icons">delete_forever</span>
+                </button>                
+            </div>
+        </div>
+        <div class="chat-content">
+            <!-- TODO: 채팅 메시지 말풍선 -->
+        </div>
+        <div class="chat-input">
+            <textarea name="" id="" class="msg"></textarea>
+            <button id="chat-send" class="flex justify-center align-center btn-send">
+                <span class="material-icons">send</span>
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

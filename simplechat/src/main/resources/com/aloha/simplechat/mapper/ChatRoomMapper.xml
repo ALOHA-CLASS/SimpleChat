@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.simplechat.mapper.ChatRoomMapper">
+
+    <!-- 기본 등록 -->
+    <insert id="insert">
+        INSERT INTO chat_room ( name, value ) VALUES ( #{name}, #{value} )
+    </insert>
+
+    <!-- 기본 조회 -->
+    <select id="select" resultType="chatRoom">
+        SELECT * FROM chat_room WHERE name = #{name}
+    </select>
+
+    <!-- 기본 수정 -->
+    <update id="update">
+        UPDATE chat_room
+           SET name = #{name},
+               value = #{value}
+        WHERE name = #{name}
+    </update>
+
+    <!-- 기본 삭제 -->
+    <delete id="delete">
+        DELETE FROM chat_room WHERE name = #{name}
+    </delete>
+    
+</mapper>

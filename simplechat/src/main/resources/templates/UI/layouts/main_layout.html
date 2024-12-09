@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [META] -->
+    <th:block th:replace="~{ui/fragments/meta::meta}"></th:block>
+    <!-- [LINK] -->
+    <th:block th:replace="~{ui/fragments/link::link}"></th:block>
+
+</head>
+<body>
+    <!-- [HEADER] -->
+    <th:block th:replace="~{ui/fragments/header::header}"></th:block>
+    <!-- [CONTENT]-->
+    <th:block layout:fragment="content"></th:block>
+</body>
+</html>

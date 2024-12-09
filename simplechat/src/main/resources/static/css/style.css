@@ -1,0 +1,234 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+ul { list-style-type: none; }
+a { text-decoration: none; color: black; }
+
+/* [FLEX] ################################################# */
+.flex { display: flex; }
+.flex.justify-between { justify-content: space-between; }
+.flex.justify-center { justify-content: center; }
+.flex.align-center { align-items: center; }
+/* ################################################# */
+
+.container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #000;
+}
+
+.btn-menu {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.btn-menu:hover {
+    font-weight: bold;
+}
+
+.btn-lg {
+    width: 100%;
+    height: 60px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6699FF;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-lg:hover {
+    background-color: #3366FF;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 채팅 목록 ############################################# */
+.chat-list {
+    width: 100%;
+    max-width: 1280px;
+    height: 850px;
+    border: 1px solid #000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 30px;
+    padding: 25px;
+    margin: 0 auto;
+}
+
+.room-card {
+    width: 600px;
+    height: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.room-card .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    padding: 50px;
+    font-size: 24px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination i {
+    font-size: 32px;
+}
+/* ################################################# */
+
+/* 방만들기 ############################################# */
+.create {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border: 1px solid #6699FF;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 50px;
+}
+
+/* .card input { */
+input.input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #6699FF;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+/* ################################################# */
+
+
+
+/* 채팅방 ############################################# */
+.chat-box {
+    width: 720px;
+    height: calc(100vh - 100px);
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+
+.chat-box .chat-header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
+    padding: 20px;
+    background-color: #6699FF;
+    border-bottom: 1px solid #000;
+    color: white;
+}
+.chat-box .chat-header * {
+    color: white;
+}
+
+.chat-box .chat-header .back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 65px;
+}
+
+.chat-box .chat-header h1 {
+    min-width: 400px;
+    width: 100%;
+}
+
+.chat-box  .chat-content {
+    height: calc(100% - 200px);
+    padding: 20px;
+    border: 1px solid #000;
+}
+
+.chat-input {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
+    padding: 20px;
+    border-top: 1px solid #000;
+}
+
+
+textarea.msg {
+    width: 100%;
+    height: 65px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+
+.btn-send {
+    width: 65px;
+    height: 65px;
+    font-size: 32px;
+    background-color: #6699FF;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-send span {
+    font-size: 32px;
+    color: white;
+}
+
+
+.btn-chat {
+    width: auto;
+    height: 65px;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

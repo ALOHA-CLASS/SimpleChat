@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ui/layouts/main_layout}"
+      >
+<head>
+    <title>방만들기</title>
+</head>
+<body layout:fragment="content">
+    <div class="container">
+        <form action="" method="post">
+            <section class="create">
+                <div class="card">
+                        <div class="top">
+                            <div>
+                                <label for="title">방 이름 : </label>
+                                <input type="text" id="title" name="title" class="input" />
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <input type="submit" value="방 만들기" class="btn-lg">
+                        </div>
+                    </div>
+            </section>
+        </form>
+    </div>
+</body>
+</html>
