@@ -11,108 +11,45 @@
 
         <!-- 채팅방 목록 -->
         <div class="chat-list">
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
+
+            <th:block th:each="room : ${pageInfo.list}">
+                <div class="room-card">
+                    <!-- 제목 -->
+                    <div class="title"><h1 th:text="${room.name}">방 제목</h1></div>
+                    <!-- 가운데 -->
+                    <div class="center">
+                        <span class="material-icons">person</span>
+                        <span>10</span>
+                    </div>
+                    <!-- 하단 -->
+                    <div class="bottom">
+                        <a th:href="@{/chat/{id}(id=${room.id})}" class="btn-lg">들어가기</a>
+                    </div>
                 </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a th:href="|/chat/100|" class="btn-lg">들어가기</a>
-                </div>
-            </div>
-            
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
-                </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a href="" class="btn-lg">들어가기</a>
-                </div>
-            </div>
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
-                </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a href="" class="btn-lg">들어가기</a>
-                </div>
-            </div>
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
-                </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a href="" class="btn-lg">들어가기</a>
-                </div>
-            </div>
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
-                </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a href="" class="btn-lg">들어가기</a>
-                </div>
-            </div>
-            <!-- 채팅방 카드 -->
-            <div class="room-card">
-                <!-- 제목 -->
-                <div class="title"><h1>방 제목</h1></div>
-                <!-- 가운데 -->
-                <div class="center">
-                    <span class="material-icons">person</span>
-                    <span>10</span>
-                </div>
-                <!-- 하단 -->
-                <div class="bottom">
-                    <a href="" class="btn-lg">들어가기</a>
-                </div>
-            </div>
+            </th:block>
 
         </div>
 
         <!-- 페이지네이션 -->
         <div class="pagination">
-            <a href="" class="btn">
-                <i class="material-icons">chevron_left</i>
-            </a>
-            <a href="" class="btn">1</a>
+            <th:block th:if="${pageInfo.hasPreviousPage}">
+                <a th:href="@{/(page=${pagination.prev}, size=6)}" class="btn">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </th:block>
+            <a href="" class="btn" 
+                th:text="${param.page == null or param.page == 0 ? 1 : param.page}">1</a>
             <span>/</span>
-            <a href="" class="btn">10</a>
-            <a href="" class="btn">
-                <i class="material-icons">chevron_right</i>
-            </a>
+            <a href="" class="btn" th:text="${pagination.last}">10</a>
+            <th:block th:if="${pagination.next <= pagination.last}">
+                <a th:href="@{/(page=${pagination.next}, size=6)}" class="btn">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </th:block>
         </div>
 
 
     </div>
+    
 </body>
 </html>

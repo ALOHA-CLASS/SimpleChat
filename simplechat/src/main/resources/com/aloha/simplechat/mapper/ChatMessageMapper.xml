@@ -7,7 +7,8 @@
 
     <!-- 기본 등록 -->
     <insert id="insert">
-        INSERT INTO chat_message ( name, value ) VALUES ( #{name}, #{value} )
+        INSERT INTO chat_message ( id, chat_room_no, session_id, sender, content  ) 
+        VALUES ( #{id}, #{chatRoomNo}, #{sessionId}, #{sender}, #{content} )
     </insert>
 
     <!-- 기본 조회 -->
@@ -27,5 +28,9 @@
     <delete id="delete">
         DELETE FROM chat_message WHERE name = #{name}
     </delete>
+
+    <select id="listByRoomNo" resultType="ChatMessage">
+        SELECT * FROM chat_message WHERE chat_room_no = #{chatRoomNo}
+    </select>
     
 </mapper>

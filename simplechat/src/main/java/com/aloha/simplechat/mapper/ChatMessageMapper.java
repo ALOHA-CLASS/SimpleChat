@@ -1,5 +1,7 @@
 package com.aloha.simplechat.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,5 +18,7 @@ public interface ChatMessageMapper {
     public int update(ChatMessage chatMessage);
 
     public int delete(@Param("id") String id);
+
+    public List<ChatMessage> listByRoomNo(@Param("chatRoomNo") Long chatRoomNo);
 
 }

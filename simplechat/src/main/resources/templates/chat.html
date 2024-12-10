@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{ui/layouts/main_layout}"
-      >
+      layout:decorate="~{ui/layouts/main_layout}">
 <head>
     <title>채팅방</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 </head>
 <body layout:fragment="content">
     <div class="chat-box">
@@ -13,7 +14,7 @@
                 <a href="javascript: history.back();" class="back">
                     <span class="material-icons">arrow_back</span>
                 </a>
-                <h1>방 제목</h1>
+                <h1 th:text="${chatRoom.name}">방 제목</h1>
             </div>
             <div class="etc">
                 <button id="" class="btn-chat">
@@ -21,16 +22,106 @@
                 </button>                
             </div>
         </div>
-        <div class="chat-content">
-            <!-- TODO: 채팅 메시지 말풍선 -->
+        <div class="chat-content" id="chat-messages">
+            <!-- 채팅 메시지가 표시됩니다. -->
+            <th:block th:each="message : ${pageInfo.list}">
+                <div class="msg-box" th:classappend="${message.sessionId} == ${sessionId} ? 'me' : ''">
+                    <div class="inner">
+                        <div class="msg-content">
+                            <p>
+                                <span th:text="${message.content}">메시지</span>
+                            </p>
+                        </div>
+                        <div class="flex justify-between bottom">
+                            <span th:text="${message.sender}">익명 사용자</span>
+                            <span th:text="${#dates.format(message.createdAt, 'yyyy.MM.dd HH:mm:ss')}">2021.08.01 12:00:00</span>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
         </div>
         <div class="chat-input">
-            <textarea name="" id="" class="msg"></textarea>
-            <button id="chat-send" class="flex justify-center align-center btn-send">
+            <textarea id="message" class="msg" placeholder="메시지를 입력하세요"></textarea>
+            <button id="chat-send" class="btn-send flex justify-center align-center">
                 <span class="material-icons">send</span>
             </button>
         </div>
     </div>
 
+    <script>
+        let stompClient = null;
+        let roomId = `[[${roomId}]]`
+        let sessionId = `[[${sessionId}]]`
+
+        function connect() {
+            const socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, () => {
+                console.log("Connected");
+
+                // 메시지 수신
+                stompClient.subscribe('/topic/' + roomId, function (messageOutput) {
+                    showMessage(JSON.parse(messageOutput.body));
+                });
+
+                // 사용자 입장 메시지 전송
+                msg = JSON.stringify({sender: '익명 사용자', content: '입장하였습니다.', type: 'JOIN'})
+                stompClient.send("/app/chat.addUser/" + roomId, {}, msg);
+            });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const messageContent = messageInput.value.trim();
+
+            if (messageContent && stompClient) {
+                const chatMessage = {
+                    roomId: roomId,
+                    sessionId: sessionId,
+                    sender: "익명 사용자",
+                    content: messageContent,
+                    type: 'CHAT'
+                };
+
+                stompClient.send("/app/chat.sendMessage/" + roomId, {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+        }
+
+        function showMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('msg-box');
+            if( message.sessionId === sessionId ) messageElement.classList.add('me');
+            messageElement.innerHTML = `
+                <div class="inner">
+                    <div class="msg-content">
+                        <p>${message.sender}: ${message.content}</p>
+                    </div>
+                    <div class="flex justify-between bottom">
+                        <span>${message.sender}</span>
+                        <span>${new Date(message.createdAt).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}</span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        document.getElementById('message').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            } else if (event.key === 'Enter' && event.shiftKey) {
+                event.preventDefault();
+                const messageInput = document.getElementById('message');
+                messageInput.value += '\n';
+            }
+        });
+
+        document.getElementById('chat-send').addEventListener('click', sendMessage);
+        connect();
+    </script>
 </body>
 </html>

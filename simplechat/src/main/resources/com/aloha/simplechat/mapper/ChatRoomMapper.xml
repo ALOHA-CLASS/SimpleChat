@@ -7,12 +7,17 @@
 
     <!-- 기본 등록 -->
     <insert id="insert">
-        INSERT INTO chat_room ( name, value ) VALUES ( #{name}, #{value} )
+        INSERT INTO chat_room ( id, name ) VALUES ( #{id}, #{name} )
     </insert>
 
     <!-- 기본 조회 -->
-    <select id="select" resultType="chatRoom">
-        SELECT * FROM chat_room WHERE name = #{name}
+    <select id="select" resultType="ChatRoom">
+        SELECT * FROM chat_room WHERE no = #{no}
+    </select>
+
+    <!-- 기본 조회 -->
+    <select id="selectById" resultType="ChatRoom">
+        SELECT * FROM chat_room WHERE id = #{id}
     </select>
 
     <!-- 기본 수정 -->
@@ -27,5 +32,13 @@
     <delete id="delete">
         DELETE FROM chat_room WHERE name = #{name}
     </delete>
+
+    <!-- 전체 조회 -->
+    <select id="list" resultType="ChatRoom">
+        SELECT * 
+        FROM chat_room
+        ORDER BY no DESC
+
+    </select>
     
 </mapper>

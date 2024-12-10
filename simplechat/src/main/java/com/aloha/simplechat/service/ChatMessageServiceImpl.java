@@ -1,10 +1,14 @@
 package com.aloha.simplechat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.simplechat.domain.ChatMessage;
 import com.aloha.simplechat.mapper.ChatMessageMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +40,15 @@ public class ChatMessageServiceImpl implements ChatMessageService  {
     public boolean delete(String id) {
         log.info("delete: " + id);
         return chatMessageMapper.delete(id) > 0;
+    }
+
+    @Override
+    public PageInfo<ChatMessage> listByRoomNo(Long chatRoomNo, int page, int size) {
+        log.info("listByRoomNo: " + chatRoomNo);
+        PageHelper.startPage(page, size);
+        List<ChatMessage> list = chatMessageMapper.listByRoomNo(chatRoomNo);
+        PageInfo<ChatMessage> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     

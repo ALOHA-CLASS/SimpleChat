@@ -185,6 +185,7 @@ input.input {
     height: calc(100% - 200px);
     padding: 20px;
     border: 1px solid #000;
+    overflow-y: scroll;
 }
 
 .chat-input {
@@ -206,6 +207,7 @@ textarea.msg {
     border-radius: 10px;
     padding: 10px;
     font-size: 1.2rem;
+    resize: none;
 }
 
 
@@ -231,4 +233,36 @@ textarea.msg {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+
+
+.msg-box {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.me {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.msg-box .bottom {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.me .msg-content {
+    background-color: #6699FF;
+    color: white;
+}
+
+.msg-content {
+    padding: 20px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+    width: auto;
+    min-width: 300px;
+    max-width: 300px;
+    border-radius: 20px;
 }

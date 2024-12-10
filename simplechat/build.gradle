@@ -40,6 +40,8 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	// pagehelper
 	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:2.1.0'
+	// WebSocket dependency
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {
