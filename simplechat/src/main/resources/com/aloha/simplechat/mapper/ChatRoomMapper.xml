@@ -7,7 +7,7 @@
 
     <!-- 기본 등록 -->
     <insert id="insert">
-        INSERT INTO chat_room ( id, name ) VALUES ( #{id}, #{name} )
+        INSERT INTO chat_room ( id, name, session_id ) VALUES ( #{id}, #{name}, #{sessionId} )
     </insert>
 
     <!-- 기본 조회 -->
@@ -23,14 +23,49 @@
     <!-- 기본 수정 -->
     <update id="update">
         UPDATE chat_room
-           SET name = #{name},
-               value = #{value}
-        WHERE name = #{name}
+        <set>
+            updated_at = now(),
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sessionId != null">
+                session_id = #{sessionId},
+            </if>
+            <if test="userCount != null">
+                user_count = #{userCount},
+            </if>
+        </set>
+        WHERE no = #{no}
+    </update>
+
+    <!-- 기본 수정 -->
+    <update id="updateById">
+        UPDATE chat_room
+        <set>
+            updated_at = now(),
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sessionId != null">
+                session_id = #{sessionId},
+            </if>
+            <if test="userCount != null">
+                user_count = #{userCount},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     <!-- 기본 삭제 -->
     <delete id="delete">
-        DELETE FROM chat_room WHERE name = #{name}
+        DELETE FROM chat_room 
+        WHERE no = #{no}
+    </delete>
+
+    <!-- 기본 삭제 -->
+    <delete id="deleteById">
+        DELETE FROM chat_room 
+        WHERE id = #{id}
     </delete>
 
     <!-- 전체 조회 -->

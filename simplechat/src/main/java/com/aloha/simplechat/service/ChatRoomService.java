@@ -7,9 +7,16 @@ public interface ChatRoomService  {
     
     public PageInfo<ChatRoom> list(int page, int size);
     public boolean insert(ChatRoom chatRoom);
+
     public ChatRoom select(Long no);
     public ChatRoom selectById(String id);
+
     public boolean update(ChatRoom chatRoom);
-    public boolean delete(String id);
+    public boolean updateById(ChatRoom chatRoom);
+
+    public boolean delete(Long no);
+    public boolean deleteById(String id);
+
+
     
 }

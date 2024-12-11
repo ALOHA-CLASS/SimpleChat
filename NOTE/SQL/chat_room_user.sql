@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `chat_room_user`;
+
+CREATE TABLE `chat_room_user` (
+	`no`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY	COMMENT 'PK',
+	`id`	VARCHAR(128)	NOT NULL	COMMENT 'UK',
+	`chat_room_no`	BIGINT	NOT NULL	COMMENT 'FK',
+	`session_id`	VARCHAR(128)	NOT NULL	COMMENT '세션ID',
+	`created_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '등록일자',
+	`updated_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '수정일자',
+    CONSTRAINT `FK_chat_room_TO_chat_room_user_1` 
+        FOREIGN KEY (`chat_room_no`) REFERENCES `chat_room` (`no`)
+        ON DELETE CASCADE
+);

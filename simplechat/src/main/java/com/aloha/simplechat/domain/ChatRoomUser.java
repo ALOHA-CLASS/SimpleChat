@@ -1,28 +1,27 @@
 package com.aloha.simplechat.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class ChatRoom {
+@Builder
+@AllArgsConstructor
+public class ChatRoomUser {
 
     private Long no;
     private String id;
-    private String name;
+    private Long chatRoomNo;
     private String sessionId;
-    private Long userCount;
     private Date createdAt;
     private Date updatedAt;
 
-    private List<ChatMessage> messages = new ArrayList<>();
-
-    public ChatRoom() {
+    public ChatRoomUser() {
         this.id = UUID.randomUUID().toString();
-        this.userCount = 0L;
     }
+
     
 }

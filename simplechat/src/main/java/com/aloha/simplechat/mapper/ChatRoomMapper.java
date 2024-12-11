@@ -15,10 +15,13 @@ public interface ChatRoomMapper {
 
     public ChatRoom select(@Param("no") Long no);
     public ChatRoom selectById(@Param("id") String id);
+    
 
     public int update(ChatRoom chatRoom);
+    public int updateById(ChatRoom chatRoom);
 
-    public int delete(@Param("id") String id);
+    public int delete(@Param("no") Long no);
+    public int deleteById(@Param("id") String id);
 
     public List<ChatRoom> list();
 

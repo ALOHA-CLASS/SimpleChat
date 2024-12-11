@@ -36,20 +36,28 @@ public class ChatRoomServiceImpl implements ChatRoomService  {
 
     @Override
     public boolean update(ChatRoom chatRoom) {
-        log.info("update: " + chatRoom);
         return chatRoomMapper.update(chatRoom) > 0;
-    }
-
-    @Override
-    public boolean delete(String id) {
-        log.info("delete: " + id);
-        return chatRoomMapper.delete(id) > 0;
     }
 
     @Override
     public PageInfo<ChatRoom> list(int page, int size) {
         PageHelper.startPage(page, size);
         return new PageInfo<>(chatRoomMapper.list());
+    }
+
+    @Override
+    public boolean delete(Long no) {
+        return chatRoomMapper.delete(no) > 0;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        return chatRoomMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public boolean updateById(ChatRoom chatRoom) {
+        return chatRoomMapper.updateById(chatRoom) > 0;
     }
 
     
