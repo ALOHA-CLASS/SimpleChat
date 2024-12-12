@@ -54,6 +54,8 @@
         </div>
     </div>
 
+    <audio id="alarm-sound" src="/audio/alarm.mp3" controls preload="auto"></audio>
+
     <script>
         let stompClient = null;
         let roomId = `[[${roomId}]]`
@@ -70,9 +72,18 @@
                 stompClient.subscribe('/topic/' + roomId, function (messageOutput) {
                     const message = JSON.parse(messageOutput.body);
                     showMessage(message);
+
+                    // 입장/퇴장 시 접속자 수 업데이트
                     if (message.type === 'JOIN' || message.type === 'LEAVE') {
                         updateUserCount();
+                    } 
+                    
+                    // 다른 사용자의 메시지일 때 알람 소리 재생
+                    if( message.type === 'CHAT' && message.sessionId !== sessionId ) {
+                        playAlarm()
                     }
+
+                    
                 });
 
                 // 사용자 입장 메시지 전송
@@ -85,6 +96,7 @@
                 };
                 msg = JSON.stringify(chatMessage)
                 stompClient.send("/app/chat.addUser/" + roomId, {}, msg);
+
             });
 
             window.addEventListener('beforeunload', function () {
@@ -121,11 +133,16 @@
             const chatMessages = document.getElementById('chat-messages');
             const messageElement = document.createElement('div');
             messageElement.classList.add('msg-box');
-            if( message.sessionId === sessionId ) messageElement.classList.add('me');
+            if( message.sessionId === sessionId ) {
+                messageElement.classList.add('me');
+                
+            } 
+                
+
             messageElement.innerHTML = `
                 <div class="inner">
                     <div class="msg-content">
-                        <p>${message.sender}: ${message.content}</p>
+                        <p>${message.content}</p>
                     </div>
                     <div class="flex justify-between bottom">
                         <span>${message.sender}</span>
@@ -180,6 +197,14 @@
                     document.getElementById('user-count').innerText = data.userCount;
                 });
         }
+
+
+        // 🔔 알람 소리 재생
+        function playAlarm() {
+            const alarmSound = document.getElementById('alarm-sound');
+            alarmSound.play();
+        }
+
     </script>
 </body>
 </html>
