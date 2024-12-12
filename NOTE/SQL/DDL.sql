@@ -6,6 +6,8 @@ CREATE TABLE `chat_room` (
 	`no`	BIGINT	NOT NULL    AUTO_INCREMENT PRIMARY KEY	COMMENT 'PK',
 	`id`	VARCHAR(128)	NOT NULL	COMMENT 'UK',
 	`name`	VARCHAR(100)	NOT NULL,
+	`session_id`	VARCHAR(128)	NOT NULL,
+	`user_count`	BIGINT	NOT NULL	DEFAULT 0,
 	`created_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '등록일자',
 	`updated_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '수정일자'
 );
@@ -16,12 +18,28 @@ CREATE TABLE `chat_message` (
 	`no`	BIGINT	NOT NULL    AUTO_INCREMENT PRIMARY KEY	COMMENT 'PK',
 	`id`	VARCHAR(128)	NOT NULL	COMMENT 'UK',
 	`chat_room_no`	BIGINT	NOT NULL	COMMENT 'PK',
-	`session_id`	VARCHAR(255)	NOT NULL	COMMENT '세션ID',
-	`message`	TEXT	NOT NULL,
+	`session_id`	VARCHAR(128)	NOT NULL	COMMENT '세션ID',
+	`sender`	VARCHAR(100)	NOT NULL	COMMENT '보낸사람',
+	`content`	TEXT	NOT NULL,
 	`created_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '등록일자',
 	`updated_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '수정일자',
-    CONSTRAINT `FK_chat_room_TO_chat_message_1` FOREIGN KEY (`chat_room_no`) REFERENCES `chat_room` (`no`)
+    CONSTRAINT `FK_chat_room_TO_chat_message_1` 
+		FOREIGN KEY (`chat_room_no`) REFERENCES `chat_room` (`no`)
+		ON DELETE CASCADE
 );
 
 
 
+DROP TABLE IF EXISTS `chat_room_user`;
+
+CREATE TABLE `chat_room_user` (
+	`no`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY	COMMENT 'PK',
+	`id`	VARCHAR(128)	NOT NULL	COMMENT 'UK',
+	`chat_room_no`	BIGINT	NOT NULL	COMMENT 'FK',
+	`session_id`	VARCHAR(128)	NOT NULL	COMMENT '세션ID',
+	`created_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '등록일자',
+	`updated_at`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '수정일자',
+    CONSTRAINT `FK_chat_room_TO_chat_room_user_1` 
+        FOREIGN KEY (`chat_room_no`) REFERENCES `chat_room` (`no`)
+        ON DELETE CASCADE
+);
